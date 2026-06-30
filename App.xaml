@@ -1,0 +1,659 @@
+﻿<Application x:Class="SglDesigner.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns:actions="clr-namespace:SglDesigner.PropertyPanels.Actions"
+             xmlns:local="clr-namespace:SglDesigner"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#333"/>
+        <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#555"/>
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FFC600"/>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#333"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#555"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton" 
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          Grid.Column="2" 
+                          Focusable="false"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="Border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="20"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Path x:Name="Arrow" 
+                                      Grid.Column="1" 
+                                      Fill="#FFC600" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" 
+                                      Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="#FFC600"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False" 
+                              Content="{TemplateBinding SelectionBoxItem}"
+                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Visibility="Hidden"
+                                     Margin="{TemplateBinding Padding}"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Left"
+                                     Focusable="True"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"/>
+
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" 
+                   AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                <Grid Name="DropDown" SnapsToDevicePixels="True" 
+                      MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border Name="DropDownBorder" Background="#2D2D2D" 
+                            BorderThickness="1" BorderBrush="#555"/>
+                                    <ScrollViewer Margin="4" SnapsToDevicePixels="True">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEditable" Value="True">
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0 2 0 2"/>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Name="Gd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Gd" Property="Background" Value="#444"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Gd" Property="Background" Value="#FFC600"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TabItem">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid>
+                            <Border Name="Border" 
+
+                            BorderBrush="#FFA0A0A0"
+                            BorderThickness="1,1,1,1"
+                            CornerRadius="4,4,0,0"
+                            Margin="5,2,5,0">
+                                <ContentPresenter x:Name="ContentSite"
+                              ContentSource="Header"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="5 2 5 2"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#3366B4"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#4C8850"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SglCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="Background" Value="#333"/>
+            <Setter Property="BorderBrush" Value="#555"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Gold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ScrollThumbStyle" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border Background="Transparent">
+                            <Rectangle x:Name="ThumbVisual" 
+                               Width="6" Height="Auto"
+                               Fill="#4CFFFFFF"  
+                               RadiusX="3" RadiusY="3" 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Stretch"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource AncestorType=ScrollBar}}" Value="Horizontal">
+                                <Setter TargetName="ThumbVisual" Property="Width" Value="Auto"/>
+                                <Setter TargetName="ThumbVisual" Property="Height" Value="6"/>
+                                <Setter TargetName="ThumbVisual" Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter TargetName="ThumbVisual" Property="VerticalAlignment" Value="Center"/>
+                            </DataTrigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ThumbVisual" Property="Fill" Value="#80FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="ThumbVisual" Property="Fill" Value="Gold"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollButtonBase" TargetType="RepeatButton">
+            <Setter Property="Background" Value="#333"/>
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Height" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ScrollUpButtonStyle" BasedOn="{StaticResource ScrollButtonBase}" TargetType="RepeatButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="{TemplateBinding Background}" x:Name="ButtonBorder">
+                            <Path Data="M 0 3 L 3 0 L 6 3" 
+                          Stroke="White" 
+                          StrokeThickness="1"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#444"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollDownButtonStyle" BasedOn="{StaticResource ScrollButtonBase}" TargetType="RepeatButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="{TemplateBinding Background}" x:Name="ButtonBorder">
+                            <Path Data="M 0 0 L 3 3 L 6 0" 
+                          Stroke="White" 
+                          StrokeThickness="1"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#444"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollBarStyle" TargetType="ScrollBar">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid x:Name="GridRoot" Background="#333">
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="Row0" Height="Auto"/>
+                                <RowDefinition x:Name="Row1" Height="*"/>
+                                <RowDefinition x:Name="Row2" Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="Col0" Width="*"/>
+                                <ColumnDefinition x:Name="Col1" Width="0"/>
+                                <ColumnDefinition x:Name="Col2" Width="0"/>
+                            </Grid.ColumnDefinitions>
+
+                            <RepeatButton x:Name="PART_DecreaseButton"
+                                  Grid.Row="0" Grid.Column="0"
+                                  Style="{StaticResource ScrollUpButtonStyle}"
+                                  Command="ScrollBar.LineUpCommand" />
+
+                            <Track x:Name="PART_Track" Grid.Row="1" Grid.Column="0"
+                           IsDirectionReversed="True">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand">
+                                        <RepeatButton.Template>
+                                            <ControlTemplate TargetType="RepeatButton">
+                                                <Border Background="Transparent"/>
+                                            </ControlTemplate>
+                                        </RepeatButton.Template>
+                                    </RepeatButton>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand">
+                                        <RepeatButton.Template>
+                                            <ControlTemplate TargetType="RepeatButton">
+                                                <Border Background="Transparent"/>
+                                            </ControlTemplate>
+                                        </RepeatButton.Template>
+                                    </RepeatButton>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource ScrollThumbStyle}"/>
+                                </Track.Thumb>
+                            </Track>
+
+                            <RepeatButton x:Name="PART_IncreaseButton"
+                                  Grid.Row="2" Grid.Column="0"
+                                  Style="{StaticResource ScrollDownButtonStyle}"
+                                  Command="ScrollBar.LineDownCommand" />
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter Property="Width" Value="Auto"/>
+                                <Setter Property="Height" Value="10"/>
+
+                                <Setter TargetName="Row0" Property="Height" Value="*"/>
+                                <Setter TargetName="Row1" Property="Height" Value="0"/>
+                                <Setter TargetName="Row2" Property="Height" Value="0"/>
+                                <Setter TargetName="Col0" Property="Width" Value="Auto"/>
+                                <Setter TargetName="Col1" Property="Width" Value="*"/>
+                                <Setter TargetName="Col2" Property="Width" Value="Auto"/>
+
+                                <Setter TargetName="PART_DecreaseButton" Property="Grid.Row" Value="0"/>
+                                <Setter TargetName="PART_DecreaseButton" Property="Grid.Column" Value="0"/>
+                                <Setter TargetName="PART_DecreaseButton" Property="Command" Value="ScrollBar.LineLeftCommand"/>
+                                <Setter TargetName="PART_DecreaseButton" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter TargetName="PART_Track" Property="Grid.Row" Value="0"/>
+                                <Setter TargetName="PART_Track" Property="Grid.Column" Value="1"/>
+                                <Setter TargetName="PART_Track" Property="Orientation" Value="Horizontal"/>
+                                <Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False"/>
+
+                                <Setter TargetName="PART_IncreaseButton" Property="Grid.Row" Value="0"/>
+                                <Setter TargetName="PART_IncreaseButton" Property="Grid.Column" Value="2"/>
+                                <Setter TargetName="PART_IncreaseButton" Property="Command" Value="ScrollBar.LineRightCommand"/>
+                                <Setter TargetName="PART_IncreaseButton" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ScrollViewer" x:Key="ScrollerStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollViewer">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ScrollContentPresenter Grid.Row="0" Grid.Column="0" 
+                                            Margin="{TemplateBinding Padding}" 
+                                            Content="{TemplateBinding Content}"/>
+
+                            <ScrollBar x:Name="PART_VerticalScrollBar"
+                               Grid.Row="0" Grid.Column="1"
+                               Orientation="Vertical"
+                               Style="{StaticResource ScrollBarStyle}"
+                               Value="{TemplateBinding VerticalOffset}"
+                               Maximum="{TemplateBinding ScrollableHeight}"
+                               ViewportSize="{TemplateBinding ViewportHeight}"
+                               Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+
+                            <ScrollBar x:Name="PART_HorizontalScrollBar"
+                               Grid.Row="1" Grid.Column="0"
+                               Orientation="Horizontal"
+                               Style="{StaticResource ScrollBarStyle}"
+                               Value="{TemplateBinding HorizontalOffset}"
+                               Maximum="{TemplateBinding ScrollableWidth}"
+                               ViewportSize="{TemplateBinding ViewportWidth}"
+                               Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+
+                            <Border Grid.Row="1" Grid.Column="1" Background="#333"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="SglSlimIconButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#3D3D3D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="BorderBrush" Value="#444"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="2">
+                        <Grid>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{TemplateBinding Content}" Placement="Bottom"/>
+                            </ToolTipService.ToolTip>
+
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Path Data="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
+                                  Stroke="{TemplateBinding Foreground}" 
+                                  StrokeThickness="1" Fill="Transparent" Stretch="Uniform" 
+                                  Height="16" Width="16" Margin="0,0,0,-3"
+                                  HorizontalAlignment="Center"/>
+
+                                <TextBlock Text="{TemplateBinding Content}" Margin="0 5 0 0"
+                                       FontSize="10" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#A8FFC000"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#2D2D2D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="6"/>
+                            </Grid.RowDefinitions>
+
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            Grid.ColumnSpan="4" 
+                            Grid.Row="1" 
+                            Grid.RowSpan="3" 
+                            CornerRadius="4" />
+
+                            <Border x:Name="Header" 
+                            Grid.Column="1" 
+                            Padding="3,1,3,0" 
+                            Grid.Row="0" Background="#252525"
+                            Grid.RowSpan="2">
+                                <ContentPresenter ContentSource="Header" 
+                                          
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+
+                            <ContentPresenter Grid.Column="1" 
+                                      Grid.ColumnSpan="2" 
+                                      Grid.Row="2" 
+                                      Margin="{TemplateBinding Padding}" 
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+        <local:IntToThicknessConverter x:Key="IntToThicknessConverter"/>
+        <local:IntToCornerRadiusConverter x:Key="IntToCornerRadiusConverter"/>
+        <local:TopCornerRadiusConverter x:Key="TopCornerRadiusConverter"/>
+        <local:IntToDoubleConverter x:Key="IntToDoubleConverter"/>
+        <local:ImgVisibleConverter x:Key="ImgVisibleConverter"/>
+        <local:FontVisibleConverter x:Key="FontVisibleConverter"/>
+        <local:NullToBoolConverter x:Key="NullToBoolConverter"/>
+        <local:ResNameToImageSourceConverter x:Key="ResNameToImageSourceConverter"/>
+        <local:ResTypeToDisplayTextConverter x:Key="ResTypeToDisplayTextConverter"/>
+        <local:ColorFormatIndexConverter x:Key="ColorFormatIndexConverter"/>
+        <local:InverseBoolToVisConverter x:Key="InverseBoolToVisConverter"/>
+        <local:BoolToVisConverter x:Key="BoolToVisConverter"/>
+        <local:InverseBoolConverter x:Key="InverseBoolConverter"/>
+        <local:MinusOneConverter x:Key="MinusOneConverter"/>
+        <local:ByteToOpacityConverter x:Key="ByteToOpacityConverter"/>
+        <local:BoolToDashConverter x:Key="BoolToDashConverter"/>
+
+        <Style x:Key="PropHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#3498db"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,10,0,5"/>
+        </Style>
+
+        <Style x:Key="PropRow" TargetType="HeaderedContentControl">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="HeaderedContentControl">
+                        <StackPanel>
+                            <TextBlock Text="{TemplateBinding Header}" FontSize="10" Foreground="#888" Margin="0,0,0,2"/>
+                            <ContentPresenter />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="xctk:ColorPicker">
+            <Setter Property="Background" Value="#3D3D3D"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="local:ColorPickerEyedropper.IsEnabled" Value="True"/>
+        </Style>
+        <!--为什么不生效呢？-->
+        <Style TargetType="xctk:IntegerUpDown">
+            <Setter Property="Background" Value="#3D3D3D"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Padding" Value="3 3 0 3"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#333"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <DataTemplate DataType="{x:Type local:SglChangeScreenAction}">
+            <actions:ChangeScreen/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:SglSetPropertyAction}">
+            <actions:SetProperty/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:SglCallFunctionAction}">
+            <actions:CallFunction/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:SglModifyFlagAction}">
+            <actions:ModifyFlag/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type local:SglWidgetData}">
+            <panels:EventPropertyPanel />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type local:SglButtonData}">
+            <panels:ButtonPropertyPanel />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglLabelData}">
+            <panels:LabelPropertyPanel />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:SglProgressData}">
+            <panels:ProgressPropertyPanel />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglBarData}">
+            <panels:BarPropertyPanel />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:SglSwitchData}">
+            <panels:SwitchPropertyPanel />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:SglSliderData}">
+            <panels:SliderPropertyPanel />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type local:SglArcData}">
+            <panels:ArcPropertyPanel />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:SglExtImageData}">
+            <panels:ExtImagePropertyPanel />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglCheckboxData}">
+            <panels:CheckboxPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglLedData}">
+            <panels:LedPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglTextBoxData}">
+            <panels:TextBoxPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglLineData}">
+            <panels:LinePropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglIconData}">
+            <panels:IconPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglPanelData}">
+            <panels:PanelPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglBoxData}">
+            <panels:BoxPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglPolygonData}">
+            <panels:PolygonPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglMsgBoxData}">
+            <panels:MsgBoxPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglWinData}">
+            <panels:WinPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglViewlistData}">
+            <panels:ViewlistPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglStatusbarData}">
+            <panels:StatusbarPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglDropdownData}">
+            <panels:DropdownPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglRollerData}">
+            <panels:RollerPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglCircleData}">
+            <panels:CirclePropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglRingData}">
+            <panels:RingPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglKeyboardData}">
+            <panels:KeyboardPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglNumberKbdData}">
+            <panels:NumberKbdPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglBarchartData}">
+            <panels:BarchartPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglPiechartData}">
+            <panels:PiechartPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglLinechartData}">
+            <panels:LinechartPropertyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:SglQrcodeData}">
+            <panels:QrcodePropertyPanel/>
+        </DataTemplate>
+        
+
+    </Application.Resources>
+</Application>

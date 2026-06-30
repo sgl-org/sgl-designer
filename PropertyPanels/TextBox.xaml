@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.TextBoxPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <StackPanel>
+
+        <panels:BasePropertyPanel />
+        <TextBlock Text="文本内容设置" Style="{StaticResource PropHeader}"/>
+
+        <StackPanel Margin="2">
+            <TextBlock Text="文本内容 (text)" Foreground="Gray" />
+            <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" 
+                     AcceptsReturn="True" 
+                     Height="80" 
+                     VerticalContentAlignment="Top"
+                     VerticalScrollBarVisibility="Auto"
+                     TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <TextBlock Text="文字样式与间距" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="文字颜色 (text_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding TextColor}"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="字体选择 (font)" Foreground="Gray" />
+                <ComboBox SelectedValue="{Binding FontName}" 
+                          ItemsSource="{Binding Source={x:Static local:FontViewModel.Instance}, Path=FontOptions}"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="行间距 (line_margin)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding LineMargin}" Minimum="0" Maximum="50"/>
+            </StackPanel>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

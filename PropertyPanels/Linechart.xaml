@@ -1,0 +1,174 @@
+<UserControl x:Class="SglDesigner.PropertyPanels.LinechartPropertyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels">
+    <UserControl.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="LightGray"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <panels:BasePropertyPanel />
+
+        <TextBlock Text="图表颜色与样式" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="线条颜色 (line_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding LineColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="线条粗细 (width)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding LineThickness}" Minimum="1" Maximum="10"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="线条不透明度 (alpha)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding LineOpacity}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="数据点半径 (radius)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding PointRadius}" Minimum="1" Maximum="20"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="数据点样式 (shape)" Foreground="Gray" />
+                <ComboBox SelectedValue="{Binding PointType}"
+                          ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:SglLinePointType}}}"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="绘图区域 (Plot Area)" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="左偏移 (offset_x)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding PlotOffsetX}" Minimum="0"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="上偏移 (offset_y)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding PlotOffsetY}" Minimum="0"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="绘图宽度 (plot_w)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding PlotWidth}" Minimum="10"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="绘图高度 (plot_h)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding PlotHeight}" Minimum="10"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="Y 轴" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <CheckBox Content="显示 Y 轴标签" IsChecked="{Binding ShowYLabels}"/>
+            <CheckBox Content="显示 Y 轴网格" IsChecked="{Binding ShowYGrid}"/>
+            <CheckBox Content="显示 Y 轴刻度" IsChecked="{Binding ShowYTicks}"/>
+            <CheckBox Content="Y 网格虚线" IsChecked="{Binding YGridDashed}"/>
+            <CheckBox Content="Y 自动缩放" IsChecked="{Binding YAutoScale}"/>
+        </StackPanel>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="Y 轴字体" Foreground="Gray" />
+                <ComboBox SelectedValue="{Binding YFontName}"
+                          ItemsSource="{Binding Source={x:Static local:FontViewModel.Instance}, Path=FontOptions}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="网格透明度" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding YGridAlpha}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="标签透明度" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding YLabelAlpha}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="分割数量 (divisions)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding YDivisions}" Minimum="1" Maximum="10"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="步进 (step, 0=auto)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding YStep}" Minimum="0" Maximum="1000"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="最小值 (min)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding YMin}" Minimum="-9999" Maximum="9999"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="最大值 (max)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding YMax}" Minimum="-9999" Maximum="9999"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="网格颜色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding YGridColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="标签颜色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding YLabelColor}"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="X 轴" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <CheckBox Content="显示 X 轴标签" IsChecked="{Binding ShowXLabels}"/>
+            <CheckBox Content="显示 X 轴网格" IsChecked="{Binding ShowXGrid}"/>
+            <CheckBox Content="显示 X 轴刻度" IsChecked="{Binding ShowXTicks}"/>
+            <CheckBox Content="X 网格虚线" IsChecked="{Binding XGridDashed}"/>
+        </StackPanel>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="X 轴字体" Foreground="Gray" />
+                <ComboBox SelectedValue="{Binding XFontName}"
+                          ItemsSource="{Binding Source={x:Static local:FontViewModel.Instance}, Path=FontOptions}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="X 网格透明度" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding XGridAlpha}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="X 标签透明度" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding XLabelAlpha}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="X 网格颜色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding XGridColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="X 标签颜色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding XLabelColor}"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="区域填充" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <CheckBox Content="开启下方填充 (fill_under)" IsChecked="{Binding FillUnder}"/>
+        </StackPanel>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="填充颜色 (fill_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding FillColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="填充透明度 (alpha)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding FillOpacity}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="动画" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <CheckBox Content="启用开场动画" IsChecked="{Binding EnableOpenAnim}"/>
+        </StackPanel>
+        <UniformGrid Columns="2" IsEnabled="{Binding EnableOpenAnim}">
+            <StackPanel Margin="2">
+                <TextBlock Text="动画方向" Foreground="Gray" />
+                <ComboBox SelectedValue="{Binding OpenAnimDir}"
+                          ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:SglLineOpenAnimDir}}}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="动画时长 (ms)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding OpenAnimDuration}" Minimum="0" Maximum="5000"/>
+            </StackPanel>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

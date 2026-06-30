@@ -1,0 +1,66 @@
+<UserControl x:Class="SglDesigner.PropertyPanels.BarPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner"
+              xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <StackPanel>
+        <TextBlock Text="主体样式" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="轨道颜色 (track_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding TrackColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="填充颜色 (fill_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding FillColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="边框颜色 (border_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding BorderColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="不透明度 (alpha)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding Opacity}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="边框宽度 (border)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding BorderWidth}" Minimum="0" Maximum="16"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="圆角半径 (radius)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding Radius}" Minimum="0" Maximum="50"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="数值与方向" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="当前值 (value)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding Value}" Minimum="0" Maximum="100"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="垂直模式 (direct)" Foreground="Gray" />
+                <CheckBox IsChecked="{Binding IsVertical}" Style="{StaticResource SglCheckBoxStyle}" Content="Vertical"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="图片资源" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <TextBlock Text="图像变量 (pixmap)" Foreground="Gray" />
+            <ComboBox SelectedValue="{Binding PixmapVarName}"
+                      SelectedValuePath="Name"
+                      ItemsSource="{Binding Source={x:Static local:ImageViewModel.Instance}, Path=ImageOptions}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16" Height="16" Margin="0,0,5,0"
+                                   Source="{Binding Name, Converter={StaticResource ResNameToImageSourceConverter}}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

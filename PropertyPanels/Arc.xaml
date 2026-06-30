@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.ArcPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <StackPanel>
+
+        <!--<panels:BasePropertyPanel />-->
+        <TextBlock Text="圆弧设置" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+            <TextBlock Text="圆弧颜色 (color)" Foreground="Gray" />
+            <xctk:ColorPicker SelectedColor="{Binding ArcColor}"/>
+        </StackPanel>
+        <StackPanel Margin="2">
+            <TextBlock Text="不透明度 (0-255)"  Foreground="Gray" Margin="0 2 0 2"/>
+                <xctk:IntegerUpDown Value="{Binding Opacity}" Height="24" Minimum="0" Maximum="255"/>
+        </StackPanel>
+        </UniformGrid>
+        
+
+        <TextBlock Text="半径设置" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="内半径 (radius_in)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding RadiusIn}" Minimum="0" Maximum="500"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="外半径 (radius_out)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding RadiusOut}" Minimum="0" Maximum="500"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="角度设置 (0-360°)" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="起始角度 (start)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding StartAngle}" Minimum="0" Maximum="360"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="结束角度 (end)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding EndAngle}" Minimum="0" Maximum="360"/>
+            </StackPanel>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.EventPropertyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SglDesigner"
+             mc:Ignorable="d" d:Height="385" d:Width="275" >
+    <StackPanel>
+        <Button Content="ADD NEW EVENT" Background="YellowGreen" BorderThickness="0" Click="AddNewEvent_Click"/>
+
+        <ItemsControl Margin="0 10 0 10" ItemsSource="{Binding Source={x:Static local:SglScreen.Instance}, Path=SelectedScreen.SelectedWidgetData.Events}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <GroupBox Header="{Binding Trigger}"  HeaderStringFormat="Event_{0}"
+                          BorderThickness="1" BorderBrush="YellowGreen"
+                          Margin="0 0 0 10">
+                        <Grid Margin="0 10 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="触发事件：" Grid.Column="0"  
+                              Foreground="Orange" 
+                              VerticalAlignment="Center"/>
+                            <!-- 触发事件选择 -->
+                            <ComboBox Grid.Column="1" 
+                                 ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SglEventTypes}" 
+                                 SelectedItem="{Binding Trigger}"
+                                 Margin="0 0 10 0"/>
+
+                            <!-- 删除整个事件的按钮 -->
+                            <Button Grid.Column="2" 
+                               Content="X"  BorderThickness="0"
+                               Background="Red" Height="24"
+                                    Foreground="White"
+                               Click="RemoveEvent_Click"
+                               />
+                            <!-- 动作类型选择 -->
+                            <TextBlock Text="添加动作："  Grid.Row="2" 
+                               Foreground="Orange" 
+                               VerticalAlignment="Center"/>
+                             <ComboBox Grid.Row="2" Grid.Column="1" Margin="0 0 10 0" Height="24"
+                              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SglActionTypes}" 
+                              SelectedItem="{Binding ActionType}"/>
+                            <!-- 添加动作按钮 -->
+                            <Button Grid.Row="2" Grid.Column="2"  
+                               Content="添加" BorderThickness="0" Foreground="White"
+                               Background="LightGreen" 
+                               Margin="0 5 0 5"
+                               Click="AddAction_Click"/>
+
+                            <!-- 动作列表 -->
+                            <ItemsControl Grid.Row="1" Grid.ColumnSpan="3" 
+                                     ItemsSource="{Binding Actions}"
+                                     Margin="0 0 0 0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border  BorderThickness="1" 
+                                            Margin="0 5 0 5" Padding="2 5 2 5">
+                                            <Border.BorderBrush>
+                                                <VisualBrush>
+                                                    <VisualBrush.Visual>
+                                                        <Rectangle Stroke="Orange" 
+                                                                   StrokeThickness="2" 
+                                                                   StrokeDashArray="2 2" 
+                                                                   Width="{Binding RelativeSource={RelativeSource AncestorType=Border}, Path=ActualWidth}"
+                                                                   Height="{Binding RelativeSource={RelativeSource AncestorType=Border}, Path=ActualHeight}"
+                                                                   RadiusX="0" RadiusY="0"/>
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Border.BorderBrush>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+
+                                                <TextBlock Text="执行动作："  Grid.Column="0" 
+                                                   Foreground="Orange" 
+                                                   VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding ActionType}" Grid.Column="1"  
+                                                   Foreground="Gray" 
+                                                   VerticalAlignment="Center"/>
+                                                  
+                                                <!-- 删除单个动作按钮 -->
+                                                <Button Grid.Column="2" 
+                                                    Content="X" BorderThickness="0"
+                                                     Background="Red" 
+                                                          Foreground="White"
+                                                   Click="RemoveAction_Click"/>
+
+                                                <!-- 动态内容区域 -->
+                                                <ContentPresenter Grid.Row="1" 
+                                                            Grid.Column="0" 
+                                                            Grid.ColumnSpan="3" 
+                                                            Margin="0 5 0 0" 
+                                                            Content="{Binding}">
+                                                </ContentPresenter>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </GroupBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+
+
+</UserControl>

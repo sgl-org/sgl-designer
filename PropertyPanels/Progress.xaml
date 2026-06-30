@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.ProgressPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" >
+    <StackPanel>
+
+        <!--<panels:BasePropertyPanel />-->
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="边框颜色"  Foreground="Gray" Margin="0 2 0 2"/>
+                <xctk:ColorPicker SelectedColor="{Binding BorderColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2" >
+                <TextBlock Text="边框大小" Foreground="Gray" Margin="0 2 0 2"/>
+                <xctk:IntegerUpDown  Value="{Binding BorderWidth}" Minimum="0" Maximum="16"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="圆角大小"  Foreground="Gray" Margin="0 2 0 2"/>
+                <xctk:IntegerUpDown Value="{Binding Radius}" Minimum="0" Maximum="50"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="不透明度 (0-255)"  Foreground="Gray" Margin="0 2 0 2"/>
+                <xctk:IntegerUpDown Value="{Binding Opacity}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+        </UniformGrid>
+        <TextBlock Text="进度控制" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+
+
+            <StackPanel Margin="2">
+                <TextBlock Text="当前进度 (value)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding Value}" Minimum="0" Maximum="100"/>
+            </StackPanel>
+        </UniformGrid>
+        
+        <TextBlock Text="填充属性 (Fill)" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="填充颜色 (fill_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding FillColor}"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="填充透明度 (fill_alpha)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding FillAlpha}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="填充圆角 (fill_radius)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding FillRadius}" Minimum="0" Maximum="20"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="填充宽度 (fill_width)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding FillWidth}" Minimum="1" Maximum="40"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="填充间隙 (fill_gap)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding FillGap}" Minimum="0" Maximum="10"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="轨道属性 (Track)" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="颜色 (track_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding TrackColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="透明度 (track_alpha)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding TrackAlpha}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

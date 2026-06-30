@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A0AB7591-5AB9-4346-9F07-6EFEB176AE04}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SglDesigner</RootNamespace>
+    <AssemblyName>SglDesigner</AssemblyName>
+    <LangVersion>9.0</LangVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommunityToolkit.Mvvm">
+      <HintPath>libs\communitytoolkit.mvvm\8.4.1\lib\netstandard2.0\CommunityToolkit.Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutoUpdater.cs" />
+    <Compile Include="PropertyPanels\Actions\CallFunction.xaml.cs">
+      <DependentUpon>CallFunction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Actions\ChangeScreen.xaml.cs">
+      <DependentUpon>ChangeScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Actions\ModifyFlag.xaml.cs">
+      <DependentUpon>ModifyFlag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Actions\SetProperty.xaml.cs">
+      <DependentUpon>SetProperty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Bar.xaml.cs">
+      <DependentUpon>Bar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Box.xaml.cs">
+      <DependentUpon>Box.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Event.xaml.cs">
+      <DependentUpon>Event.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Linechart.xaml.cs">
+      <DependentUpon>Linechart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Qrcode.xaml.cs">
+      <DependentUpon>Qrcode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Piechart.xaml.cs">
+      <DependentUpon>Piechart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Icon.xaml.cs">
+      <DependentUpon>Icon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Keyboard.xaml.cs">
+      <DependentUpon>Keyboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Circle.xaml.cs">
+      <DependentUpon>Circle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\MsgBox.xaml.cs">
+      <DependentUpon>MsgBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\NumberKbd.xaml.cs">
+      <DependentUpon>NumberKbd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Polygon.xaml.cs">
+      <DependentUpon>Polygon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Dropdown.xaml.cs">
+      <DependentUpon>Dropdown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Roller.xaml.cs">
+      <DependentUpon>Roller.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Ring.xaml.cs">
+      <DependentUpon>Ring.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Behaviors\ColorPickerEyedropper.cs" />
+    <Compile Include="Helpers\ScreenColorPickerHelper.cs" />
+    <Compile Include="WidgetBinder\WinBinder.cs" />
+    <Compile Include="WidgetBinder\ViewlistBinder.cs" />
+    <Compile Include="WidgetBinder\StatusbarBinder.cs" />
+    <Compile Include="PropertyPanels\Win.xaml.cs">
+      <DependentUpon>Win.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Viewlist.xaml.cs">
+      <DependentUpon>Viewlist.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Statusbar.xaml.cs">
+      <DependentUpon>Statusbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UndoManager.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="LayoutHelper.cs" />
+    <Compile Include="ProjectSettings.xaml.cs">
+      <DependentUpon>ProjectSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SglConfigWindow.xaml.cs">
+      <DependentUpon>SglConfigWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectManager.cs" />
+    <Compile Include="PropertyPanels\ExtImage.xaml.cs">
+      <DependentUpon>ExtImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Base.xaml.cs">
+      <DependentUpon>Base.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Button.xaml.cs">
+      <DependentUpon>Button.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Arc.xaml.cs">
+      <DependentUpon>Arc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Panel.xaml.cs">
+      <DependentUpon>Panel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Slider.xaml.cs">
+      <DependentUpon>Slider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Line.xaml.cs">
+      <DependentUpon>Line.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Barchart.xaml.cs">
+      <DependentUpon>Barchart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\TextBox.xaml.cs">
+      <DependentUpon>TextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Led.xaml.cs">
+      <DependentUpon>Led.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Checkbox.xaml.cs">
+      <DependentUpon>Checkbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Switch.xaml.cs">
+      <DependentUpon>Switch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Progress.xaml.cs">
+      <DependentUpon>Progress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\Label.xaml.cs">
+      <DependentUpon>Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyPanels\PropRow.xaml.cs">
+      <DependentUpon>PropRow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SglFontGenerator.cs" />
+    <Compile Include="SglImageGenerator.cs" />
+    <Compile Include="SglMapping.cs" />
+    <Compile Include="SglResManager.cs" />
+    <Compile Include="SglScreen.cs" />
+    <Compile Include="SglWidgets.cs" />
+    <Compile Include="WidgetBinder\BarBinder.cs" />
+    <Compile Include="WidgetBinder\BaseViewModel.cs" />
+    <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="WidgetBinder\ArcBinder.cs" />
+    <Compile Include="WidgetBinder\BoxBinder.cs" />
+    <Compile Include="WidgetBinder\LinechartBinder.cs" />
+    <Compile Include="WidgetBinder\PiechartBinder.cs" />
+    <Compile Include="WidgetBinder\CheckBoxBinder.cs" />
+    <Compile Include="WidgetBinder\BarchartBinder.cs" />
+    <Compile Include="WidgetBinder\NumberKbdBinder.cs" />
+    <Compile Include="WidgetBinder\KeyboardBinder.cs" />
+    <Compile Include="WidgetBinder\PanelBinder.cs" />
+    <Compile Include="WidgetBinder\RingBinder.cs" />
+    <Compile Include="WidgetBinder\DropdownBinder.cs" />
+    <Compile Include="WidgetBinder\RollerBinder.cs" />
+    <Compile Include="WidgetBinder\IconBinder.cs" />
+    <Compile Include="WidgetBinder\ExtImgBinder.cs" />
+    <Compile Include="WidgetBinder\CircleBinder.cs" />
+    <Compile Include="WidgetBinder\QrcodeBinder.cs" />
+    <Compile Include="WidgetBinder\PolygonBinder.cs" />
+    <Compile Include="WidgetBinder\TextBoxBinder.cs" />
+    <Compile Include="WidgetBinder\LineBinder.cs" />
+    <Compile Include="WidgetBinder\SliderBinder.cs" />
+    <Compile Include="WidgetBinder\MsgBoxBinder.cs" />
+    <Compile Include="WidgetBinder\LedBinder.cs" />
+    <Compile Include="WidgetBinder\SwitchBinder.cs" />
+    <Compile Include="WidgetBinder\ProgressBinder.cs" />
+    <Compile Include="WidgetBinder\LabelBinder.cs" />
+    <Compile Include="WidgetBinder\ButtonBinder.cs" />
+    <Compile Include="WidgetBinder\BaseBinder.cs" />
+    <Page Include="About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ProjectSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SglConfigWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Actions\CallFunction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Actions\ChangeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Actions\ModifyFlag.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Actions\SetProperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Bar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Box.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Event.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Linechart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Qrcode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Piechart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Icon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Keyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Circle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\ExtImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Base.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Arc.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\MsgBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Win.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Viewlist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Statusbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\NumberKbd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Panel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Polygon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Dropdown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Roller.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Ring.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Line.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Barchart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Led.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Checkbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Switch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Progress.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyPanels\Label.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyPanels\PropRow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Resources\Fonts\Consolas.ttf" />
+    <None Include="gen_update_json.ps1" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official">
+      <Version>1.9.2</Version>
+    </PackageReference>
+    <PackageReference Include="Costura.Fody">
+      <Version>6.0.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Extended.Wpf.Toolkit">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="gong-wpf-dragdrop">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell">
+      <Version>1.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">
+      <Version>10.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
+      <Version>1.1.142</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="SharpFont">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="SharpFont.Dependencies">
+      <Version>2.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Memory">
+      <Version>4.6.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="libs\communitytoolkit.mvvm\8.4.1\analyzers\dotnet\roslyn4.12\cs\CommunityToolkit.Mvvm.SourceGenerators.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="costura-win-x64\freetype6.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SGL_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ardroid.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Debug" Reactor_Project="" Reactor_Commands="-antitamp 1 -anti_debug 1 -hide_calls 1 -hide_calls_internals 1 -control_flow 1 -flow_level 9  -nativeexe_pdb 1 -prejit 1 -resourceencryption 1 -antistrong 1 -virtualization 1 -necrobit 1" Reactor_Deploy="0" Reactor_Enabled="1" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>powershell -ExecutionPolicy Bypass -File "$(ProjectDir)gen_update_json.ps1" ^
+-targetPath "$(TargetPath)  $(TargetDir)simulator\Makefile $(TargetDir)simulator\sgl_port_sdl2.c" ^
+-targetDir "$(TargetDir)." ^
+-configPath "$(TargetDir)update.json" ^
+-url "https://xfdr0805.github.io/software/sgl/SglDesigner.zip" ^
+-changelog "https://xfdr0805.github.io/software/sgl/changelog.txt"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

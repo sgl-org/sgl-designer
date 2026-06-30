@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.MsgBoxPropertyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+              xmlns:base="clr-namespace:SglDesigner.PropertyPanels" 
+             xmlns:local="clr-namespace:SglDesigner.PropertyPanels"
+             mc:Ignorable="d" Width="236" Height="693">
+    <StackPanel>
+        <base:BasePropertyPanel />
+        <TextBlock Text="标题与正文" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <TextBlock Text="标题内容" Foreground="Gray" />
+            <TextBox Height="24" Text="{Binding TitleText, UpdateSourceTrigger=PropertyChanged}" />
+            <xctk:ColorPicker SelectedColor="{Binding TitleColor}" Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <StackPanel Margin="2">
+            <TextBlock Text="正文内容" Foreground="Gray" />
+            <TextBox Text="{Binding MsgText, UpdateSourceTrigger=PropertyChanged}"  AcceptsReturn="True" Height="60"/>
+            <UniformGrid Columns="2" Margin="0,5,0,0">
+                <StackPanel Margin="2">
+                    <TextBlock  Text="颜色" Foreground="Gray" />
+                    <xctk:ColorPicker Height="24" SelectedColor="{Binding MsgColor}"/>
+                </StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock  Text="行间距" Foreground="Gray" />
+                    <xctk:IntegerUpDown Height="24" Value="{Binding MsgLineMargin}" Minimum="0" Maximum="20" ToolTip="行间距"/>
+                </StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock Text="行高" Foreground="Gray" />
+                    <xctk:IntegerUpDown Height="24" Value="{Binding TitleHeight}" Minimum="0" Maximum="100" ToolTip="行高"/>
+                </StackPanel>
+            </UniformGrid>
+        </StackPanel>
+
+        <TextBlock Text="按钮配置" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock  Text="左按钮文本" Foreground="Gray" />
+                <TextBox Height="24" Text="{Binding LeftBtnText}"/>
+                <TextBlock  Text="左按钮颜色" Foreground="Gray" />
+                <xctk:ColorPicker Height="24"  SelectedColor="{Binding LbtnColor}" />
+                <TextBlock Text="左文本颜色 " Foreground="Gray" />
+                <xctk:ColorPicker Height="24" SelectedColor="{Binding LbtnTextColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock  Text="右按钮文本" Foreground="Gray" />
+                <TextBox Height="24" Text="{Binding RightBtnText}"/>
+                <TextBlock  Text="右按钮颜色" Foreground="Gray" />
+                <xctk:ColorPicker Height="24" SelectedColor="{Binding RbtnColor}" />
+                <TextBlock Text="右文本颜色" Foreground="Gray" />
+                <xctk:ColorPicker Height="24" SelectedColor="{Binding RbtnTextColor}"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="窗体样式" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="背景颜色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding BgColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="圆角" Foreground="Gray" />
+                <xctk:IntegerUpDown Height="24" Value="{Binding Radius}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="透明度" Foreground="Gray" />
+                <xctk:IntegerUpDown Height="24" Value="{Binding Alpha}" Maximum="255"/>
+            </StackPanel>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

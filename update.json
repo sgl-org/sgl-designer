@@ -1,0 +1,14 @@
+{
+   "version":"1.0.0.2",
+   "url":"http://10.28.3.18/software/sgldesigner.zip",
+   "changelog":"http://10.28.3.18/software/",
+   "mandatory":{
+      "value":false,
+      "minVersion": "1.0.0.0",
+      "mode":1
+   },
+   "checksum":{
+      "value":"E5F59E50FC91A9E52634FFCB11F32BD37FE0E2F1",
+      "hashingAlgorithm":"SHA1"
+   }
+}

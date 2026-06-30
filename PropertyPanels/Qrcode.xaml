@@ -1,0 +1,96 @@
+<UserControl x:Class="SglDesigner.PropertyPanels.QrcodePropertyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:local="clr-namespace:SglDesigner"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels">
+
+
+    <UserControl.Resources>
+        <local:ResourceTypeFilterConverter x:Key="ResFilter"/>
+        <local:ResNameToImageSourceConverter x:Key="NameToImage"/>
+    </UserControl.Resources>
+    
+    
+    <StackPanel>
+       
+
+        <!-- 二维码内容 -->
+        <TextBlock Text="二维码内容" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <TextBlock Text="URL / Text (text)" Foreground="Gray" />
+            <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     MinHeight="64"/>
+        </StackPanel>
+
+        <!-- 编码参数 -->
+        <TextBlock Text="编码参数" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="版本 (qr_version)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding QrVersion}" Minimum="1" Maximum="40"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="纠错等级 (ecc)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding QrEcc}" Minimum="0" Maximum="3"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="缩放 (qr_scale)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding QrScale}" Minimum="1" Maximum="15"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="静区 (quiet_zone)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding QrQuietZone}" Minimum="0" Maximum="15"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <!-- 外观 -->
+        <TextBlock Text="外观" Style="{StaticResource PropHeader}" Margin="0,5,0,0"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="背景颜色 (bg_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding BgColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="模块颜色 (cell_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding CellColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="模块圆角 (cell_radius)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding CellRadius}" Minimum="0" Maximum="15"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="透明度 (alpha)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding Opacity}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <!-- Logo -->
+        <TextBlock Text="Logo 设置" Style="{StaticResource PropHeader}" Margin="0,5,0,0"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBox Text="图标资源 (icon)"/>
+                <ComboBox SelectedValue="{Binding PixmapVarName}" 
+SelectedValuePath="Name"
+ItemsSource="{Binding Source={x:Static local:ImageViewModel.Instance}, Path=ImageOptions}">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="16" Height="16" Margin="0,0,5,0"
+             Source="{Binding Name, Converter={StaticResource ResNameToImageSourceConverter}}"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="Logo 圆角 (logo_radius)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding LogoRadius}" Minimum="0" Maximum="50"/>
+            </StackPanel>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,43 @@
+<UserControl x:Class="SglDesigner.PropertyPanels.WinPropertyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:base="clr-namespace:SglDesigner.PropertyPanels"
+             Width="236">
+    <StackPanel>
+        <!-- 基础属性: BgColor, BorderColor, BorderWidth, Radius, Opacity -->
+        <base:BasePropertyPanel />
+
+        <TextBlock Text="标题栏" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <TextBlock Text="标题文本" Foreground="Gray" />
+            <TextBox Height="24" Text="{Binding TitleText, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="标题背景色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding TitleBgColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="标题文本色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding TitleTextColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="标题高度" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding TitleHeight}" Minimum="12" Maximum="64" />
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="关闭按钮颜色" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding CloseColor}"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="字体" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <TextBlock Text="字体选择 (font)" Foreground="Gray" />
+            <ComboBox SelectedValue="{Binding FontName}" 
+                ItemsSource="{Binding Source={x:Static local:FontViewModel.Instance}, Path=FontOptions}"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

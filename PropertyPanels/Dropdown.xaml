@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.DropdownPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" >
+    <UserControl.Resources>
+        <local:MinusOneConverter x:Key="MinusOneConverter"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <panels:BasePropertyPanel />
+
+        <TextBlock Text="下拉选项管理" Style="{StaticResource PropHeader}"/>
+        <Border BorderBrush="#3F3F3F" BorderThickness="1" Margin="2" Background="#2D2D2D">
+            <StackPanel Margin="5">
+                <ListBox ItemsSource="{Binding Options}" Height="100" Margin="0,0,0,5" 
+                         DisplayMemberPath="." x:Name="OptionsList" Background="#1E1E1E" Foreground="White"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="NewOptionText"  Margin="2"/>
+                    <Button Grid.Column="1" Content="+" Width="30" Margin="2" Click="AddOption_Click"/>
+                    <Button Grid.Column="2" Content="-" Width="30" Margin="2" Click="DeleteOption_Click"/>
+                </Grid>
+
+                <StackPanel Margin="0,5">
+                    <TextBlock Text="默认选中索引" Foreground="Gray" />
+                    <xctk:IntegerUpDown Value="{Binding SelectedIndex}" Minimum="-1" 
+                                      Maximum="{Binding Options.Count, Converter={StaticResource MinusOneConverter}}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <TextBlock Text="文本样式" Style="{StaticResource PropHeader}"/>
+
+       
+
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="文字颜色 (color)" Foreground="Gray" Margin="0 2 0 2"/>
+                <xctk:ColorPicker SelectedColor="{Binding TextColor}"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="字体选择 (font)" Foreground="Gray" Margin="0 2 0 2"/>
+                <ComboBox SelectedValue="{Binding FontName}" 
+                  ItemsSource="{Binding Source={x:Static local:FontViewModel.Instance}, Path=FontOptions}"/>
+            </StackPanel>
+            </UniformGrid>
+            <TextBlock Text="外观样式" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="主体颜色 (color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding BgColor}"/>
+            </StackPanel>
+
+            
+
+            <StackPanel Margin="2">
+                <TextBlock Text="透明度 (alpha)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding Alpha}" Minimum="0" Maximum="255"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="圆角 (radius)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding Radius}" Minimum="0" Maximum="50"/>
+            </StackPanel>
+        </UniformGrid>
+
+        
+    </StackPanel>
+</UserControl>

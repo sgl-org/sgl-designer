@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.Actions.ChangeScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SglDesigner"
+             mc:Ignorable="d" d:Width="185" d:Height="120" >
+
+    
+        <StackPanel Margin="5">
+            <TextBlock Text="目标页面:" Foreground="Gray"/>
+        <ComboBox ItemsSource="{Binding Source={x:Static local:SglScreen.Instance}, Path=ScreenList}"
+          SelectedValue="{Binding TargetPage}" SelectedValuePath="Id">
+            <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Id}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+</UserControl>

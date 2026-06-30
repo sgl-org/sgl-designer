@@ -1,0 +1,69 @@
+<UserControl x:Class="SglDesigner.PropertyPanels.BoxPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <StackPanel>
+        <panels:BasePropertyPanel />
+
+        <TextBlock Text="滚动设置" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="滚动条颜色 (scroll_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding ScrollbarColor}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="滚动模式 (scroll_mode)" Foreground="Gray" />
+                <ComboBox SelectedItem="{Binding ScrollMode}"
+                          ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:SglBoxScrollMode}}}"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="显示纵向滚动条" Foreground="Gray" />
+                <CheckBox IsChecked="{Binding ShowVerticalScrollbar}" Style="{StaticResource SglCheckBoxStyle}" Content="Vertical"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="显示横向滚动条" Foreground="Gray" />
+                <CheckBox IsChecked="{Binding ShowHorizontalScrollbar}" Style="{StaticResource SglCheckBoxStyle}" Content="Horizontal"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="弹性滚动" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="上边弹性限制 (up_limit)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding ElasticScrollUp}" Minimum="0" Maximum="4096"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="下边弹性限制 (down_limit)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding ElasticScrollDown}" Minimum="0" Maximum="4096"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="左边弹性限制 (left_limit)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding ElasticScrollLeft}" Minimum="0" Maximum="4096"/>
+            </StackPanel>
+            <StackPanel Margin="2">
+                <TextBlock Text="右边弹性限制 (right_limit)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding ElasticScrollRight}" Minimum="0" Maximum="4096"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="图片资源" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <TextBlock Text="图像变量 (pixmap)" Foreground="Gray" />
+            <ComboBox SelectedValue="{Binding PixmapVarName}"
+                      SelectedValuePath="Name"
+                      ItemsSource="{Binding Source={x:Static local:ImageViewModel.Instance}, Path=ImageOptions}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16" Height="16" Margin="0,0,5,0"
+                                   Source="{Binding Name, Converter={StaticResource ResNameToImageSourceConverter}}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

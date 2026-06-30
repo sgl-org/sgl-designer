@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.SwitchPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner"
+             xmlns:panels="clr-namespace:SglDesigner.PropertyPanels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <StackPanel>
+
+        <panels:BasePropertyPanel />
+        <TextBlock Text="状态控制" Style="{StaticResource PropHeader}"/>
+        <StackPanel Margin="2">
+            <TextBlock Text="当前状态 (status)" Foreground="Gray" />
+            <CheckBox IsChecked="{Binding Status}" Content="开启 (ON)" Foreground="White" Margin="0,5"/>
+        </StackPanel>
+
+        <TextBlock Text="颜色方案" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="开启颜色 (active_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding ActiveColor}"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="关闭颜色 (inactive_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding InactiveColor}"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="圆钮颜色 (knob_color)" Foreground="Gray" />
+                <xctk:ColorPicker SelectedColor="{Binding KnobColor}"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <TextBlock Text="圆钮尺寸设置" Style="{StaticResource PropHeader}"/>
+        <UniformGrid Columns="2">
+            <StackPanel Margin="2">
+                <TextBlock Text="圆钮半径 (knob_radius)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding KnobRadius}" Minimum="1" Maximum="50"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="圆钮间距 (knob_margin)" Foreground="Gray" />
+                <xctk:IntegerUpDown Value="{Binding KnobMargin}" Minimum="0" Maximum="20"/>
+            </StackPanel>
+        </UniformGrid>
+
+        <!--<panels:EventListPanel />-->
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.KeyboardPropertyPanel"
+             xmlns:local="clr-namespace:SglDesigner" 
+             xmlns:base="clr-namespace:SglDesigner.PropertyPanels" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+
+    <StackPanel >
+
+
+        <base:BasePropertyPanel />
+      
+  
+
+            <TextBlock Text="按键外观设置" Style="{StaticResource PropHeader}"/>
+
+            <UniformGrid Columns="2">
+                <StackPanel Margin="2">
+                    <TextBlock Text="按键颜色 (btn_color)" Foreground="Gray" FontSize="11"/>
+                    <xctk:ColorPicker SelectedColor="{Binding BtnColor}" Height="24"/>
+                </StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock Text="按键圆角 (btn_radius)" Foreground="Gray" FontSize="11"/>
+                    <xctk:IntegerUpDown Value="{Binding BtnRadius}" Height="24" Minimum="0" Maximum="255"/>
+                </StackPanel>
+
+                <StackPanel Margin="2">
+                    <TextBlock Text="按键边框 (btn_border)" Foreground="Gray" FontSize="11"/>
+                    <xctk:ColorPicker  SelectedColor="{Binding BtnBorderColor}" Height="24"/>
+                </StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock Text="边框宽度 (btn_width)" Foreground="Gray" FontSize="11"/>
+                    <xctk:IntegerUpDown Value="{Binding BtnBorderWidth}" Height="24" Minimum="0" Maximum="10"/>
+                </StackPanel>
+            </UniformGrid>
+
+           
+
+            <TextBlock Text="文本与全局布局" Style="{StaticResource PropHeader}"/>
+
+            <UniformGrid Columns="2">
+                <StackPanel Margin="2">
+                    <TextBlock Text="文本颜色 (text_color)" Foreground="Gray" FontSize="11"/>
+                    <xctk:ColorPicker SelectedColor="{Binding TextColor}" Height="24"/>
+                </StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock Text="按键间距 (margin)" Foreground="Gray" FontSize="11"/>
+                    <xctk:IntegerUpDown Value="{Binding KeyMargin}" Height="24" Minimum="0" Maximum="20"/>
+                </StackPanel>
+            </UniformGrid>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="字体选择 (font)" Foreground="Gray" FontSize="11"/>
+                <ComboBox SelectedValue="{Binding FontName}" Height="24"
+                  ItemsSource="{Binding Source={x:Static local:FontViewModel.Instance}, Path=FontOptions}"/>
+            </StackPanel>
+
+            <StackPanel Margin="2">
+                <TextBlock Text="关联文本框 (target)" Foreground="Gray" FontSize="11"/>
+                <ComboBox SelectedValue="{Binding TargetTextArea}" Height="24"
+              ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.AvailableTextAreas}"/>
+            </StackPanel>
+       
+
+        <!--<TextBlock Text="按钮事件回调" Style="{StaticResource PropHeader}"/>
+        <panels:EventListPanel />-->
+    </StackPanel>
+</UserControl>

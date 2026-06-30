@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="SglDesigner.PropertyPanels.PropRow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="ThisControl">
+    <StackPanel Margin="2">
+        <TextBlock x:Name="lbl" 
+                   Text="{Binding Header, ElementName=ThisControl}"
+                   FontSize="10" 
+                   Foreground="#888" 
+                   Margin="0,0,0,2"/>
+
+        <ContentPresenter />
+    </StackPanel>
+</UserControl>
