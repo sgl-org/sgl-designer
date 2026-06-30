@@ -40,60 +40,19 @@ UI_SOURCES := $(wildcard ui_export/*.c) \
               $(wildcard ui_export/images/*.c) \
               $(wildcard ui_export/fonts/*.c)
 			  
+# 使用通配符，名称变了也不影响，不用一个一个添加源文件
+SGL_SOURCES := $(wildcard ../sgl/source/core/*.c) \
+			   $(wildcard ../sgl/source/draw/*.c) \
+               $(wildcard ../sgl/source/fonts/*.c) \
+               $(wildcard ../sgl/source/mm/lwmem/*.c) \
+			   $(wildcard ../sgl/source/widgets/*/*.c) \
+			   $(wildcard ../sgl/source/widgets/chart/*/*.c) 
+
 
 SOURCE    := main.c sgl_port_sdl2.c  \
+			$(SGL_SOURCES) \
 			$(UI_SOURCES) \
-			../sgl/source/core/sgl_core.c    \
-			../sgl/source/core/sgl_log.c     \
-			../sgl/source/core/sgl_math.c    \
-			../sgl/source/core/sgl_event.c   \
-			../sgl/source/core/sgl_anim.c    \
-			../sgl/source/core/sgl_misc.c   \
-			../sgl/source/core/sgl_snprintf.c \
-			../sgl/source/mm/lwmem/lwmem.c   \
-			../sgl/source/mm/lwmem/sgl_mm.c  \
-			../sgl/source/draw/sgl_draw_line.c  \
-			../sgl/source/draw/sgl_draw_rect.c  \
-			../sgl/source/draw/sgl_draw_circle.c  \
-			../sgl/source/draw/sgl_draw_arc.c     \
-			../sgl/source/draw/sgl_draw_text.c \
-			../sgl/source/draw/sgl_draw_ring.c  \
-			../sgl/source/draw/sgl_draw_icon.c  \
-			../sgl/source/draw/sgl_draw_xform.c  \
-			../sgl/source/widgets/line/sgl_line.c  \
-			../sgl/source/widgets/rectangle/sgl_rectangle.c  \
-			../sgl/source/widgets/circle/sgl_circle.c  \
-			../sgl/source/widgets/ring/sgl_ring.c  \
-			../sgl/source/widgets/arc/sgl_arc.c   \
-			../sgl/source/widgets/button/sgl_button.c   \
-			../sgl/source/widgets/slider/sgl_slider.c   \
-			../sgl/source/widgets/polygon/sgl_polygon.c   \
-			../sgl/source/widgets/dropdown/sgl_dropdown.c   \
-			../sgl/source/widgets/label/sgl_label.c   \
-			../sgl/source/widgets/switch/sgl_switch.c   \
-			../sgl/source/widgets/box/sgl_box.c   \
-			../sgl/source/widgets/bar/sgl_bar.c   \
-			../sgl/source/widgets/chart/barchart/sgl_barchart.c   \
-			../sgl/source/widgets/chart/piechart/sgl_piechart.c   \
-			../sgl/source/widgets/chart/linechart/sgl_linechart.c   \
-			../sgl/source/widgets/msgbox/sgl_msgbox.c   \
-			../sgl/source/widgets/textline/sgl_textline.c  \
-			../sgl/source/widgets/textbox/sgl_textbox.c    \
-			../sgl/source/widgets/checkbox/sgl_checkbox.c   \
-			../sgl/source/widgets/icon/sgl_icon.c     \
-			../sgl/source/widgets/ext_img/sgl_ext_img.c      \
-			../sgl/source/widgets/numberkbd/sgl_numberkbd.c  \
-			../sgl/source/widgets/keyboard/sgl_keyboard.c   \
-			../sgl/source/widgets/2dball/sgl_2dball.c      \
-			../sgl/source/widgets/led/sgl_led.c      \
-			../sgl/source/widgets/progress/sgl_progress.c      \
-			../sgl/source/widgets/qrcode/sgl_qrcode.c      \
-			../sgl/source/widgets/qrcode/qrcode.c      \
-			../sgl/source/fonts/sgl_ascii_song23.c         \
-			../sgl/source/fonts/sgl_ascii_consolas23.c     \
-			../sgl/source/fonts/sgl_ascii_consolas24.c     \
-			../sgl/source/fonts/sgl_ascii_consolas14.c     
-
+			
 
 .PHONY: config all
 all: config $(BUILD_DIR)/$(TARGET).exe elf_info

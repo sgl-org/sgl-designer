@@ -436,6 +436,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Makefile" />
+    <None Include="README.md" />
     <Resource Include="Resources\Fonts\Consolas.ttf" />
     <None Include="gen_update_json.ps1" />
     <None Include="Properties\Settings.settings">
@@ -507,7 +509,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Debug" Reactor_Project="" Reactor_Commands="-antitamp 1 -anti_debug 1 -hide_calls 1 -hide_calls_internals 1 -control_flow 1 -flow_level 9  -nativeexe_pdb 1 -prejit 1 -resourceencryption 1 -antistrong 1 -virtualization 1 -necrobit 1" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="-antitamp 1 -anti_debug 1 -hide_calls 1 -hide_calls_internals 1 -control_flow 1 -flow_level 9  -nativeexe_pdb 1 -prejit 1 -resourceencryption 1 -antistrong 1 -virtualization 1 -necrobit 1" Reactor_Project="" Reactor_Configuration="Debug" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
