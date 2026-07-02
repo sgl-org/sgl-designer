@@ -30,7 +30,6 @@ CPATH     := -Isdl/include/SDL2      \
 			 -I../sgl/source         \
 			 -Iui_export         \
 			 -I../sgl/source/include \
-			 -I../sgl/source/components/qrcode 
 
 CFLAGS    := $(CPATH) -O2 -ffunction-sections -fdata-sections -Wunused-function -Wall -Wextra -std=c99 -g
 LDFLAGS   := -Lsdl/lib -lmingw32 -lSDL2main -lSDL2 -mconsole -lm -ldinput8 -ldxguid -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lsetupapi -lversion -luuid -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
@@ -41,9 +40,9 @@ UI_SOURCES := $(wildcard ui_export/*.c) \
               $(wildcard ui_export/fonts/*.c)
 			  
 # 使用通配符，名称变了也不影响，不用一个一个添加源文件
-SGL_SOURCES := $(wildcard ../sgl/source/core/*.c) \
+SGL_SOURCES := $(wildcard ../sgl/source/fonts/*.c) \
+			   $(wildcard ../sgl/source/core/*.c) \
 			   $(wildcard ../sgl/source/draw/*.c) \
-               $(wildcard ../sgl/source/fonts/*.c) \
                $(wildcard ../sgl/source/mm/lwmem/*.c) \
 			   $(wildcard ../sgl/source/widgets/*/*.c) \
 			   $(wildcard ../sgl/source/widgets/chart/*/*.c) 
