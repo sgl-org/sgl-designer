@@ -14,7 +14,7 @@ namespace SglDesigner
         [ObservableProperty] private int _radius = 4;
         [ObservableProperty] private int _opacity = 255;
 
-        [ObservableProperty] private int _value = 20;
+        [ObservableProperty] private int _value = 60;
         [ObservableProperty] private int _thickness = 4;  // 滑块厚度
         [ObservableProperty] private bool _isVertical = false; // direct: 0 水平, 1 垂直
 
@@ -62,7 +62,7 @@ namespace SglDesigner
         {
             X = 50; Y = 50;
             W = 100;
-            H = 10;
+            H = 18;
             Type = SglMapping.SglType.Slider;
             // 监听自身所有属性变化
             this.PropertyChanged += (s, e) =>

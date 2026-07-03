@@ -50,12 +50,16 @@ namespace SglDesigner
             // 注意：动态属性里叫 "BorderSize"，但 Data 里叫 "BorderWidth"，这里要统一
             Bind(b, Border.BorderThicknessProperty, "BorderWidth", data, GetConv("IntToThicknessConverter"));
             Bind(b, Border.CornerRadiusProperty, "Radius", data, GetConv("IntToCornerRadiusConverter"));
-
+            
+            b.VerticalAlignment = VerticalAlignment.Center;
+            b.Margin = new Thickness(0, -4, 0, 0);
             // 创建内部 TextBlock
             TextBlock tb = new TextBlock
             {
+                
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
+                
                 IsHitTestVisible = false // 防止干扰选中
             };
 

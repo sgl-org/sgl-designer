@@ -527,6 +527,7 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Height" Value="24"/>
             <Setter Property="Padding" Value="3 3 0 3"/>
+            <EventSetter Event="PreviewMouseWheel" Handler="GlobalUpDown_PreviewMouseWheel"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="3"/>

@@ -791,14 +791,28 @@ namespace SglDesigner
         }
         private void Viewport_MouseWheel(object sender, MouseWheelEventArgs e) { double z = e.Delta > 0 ? 1.1 : 0.9; CanvasScale.ScaleX *= z; CanvasScale.ScaleY *= z; }
 
-        // --- 快捷键逻辑修复 ---
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            bool ctrl = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
+            // ==========================================
+            // 焦点保护：如果是正在输入文本/数字，绝不拦截快捷键！
+            // 否则用户在文本框里按左右键、或者撤销时会触发画布逻辑。
+            // ==========================================
+            if (e.OriginalSource is TextBox ||
+                e.OriginalSource is System.Windows.Controls.Primitives.TextBoxBase ||
+                e.OriginalSource is Xceed.Wpf.Toolkit.IntegerUpDown)
+            {
+                return; // 让输入框自己处理按键，直接跳出
+            }
 
+            bool ctrl = (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control;
+            bool shift = (Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
+
+            // ==========================================
+            // 原有的全局快捷键
+            // ==========================================
             if (ctrl && e.Key == Key.S)
             {
-                e.Handled = true; // 拦截系统默认
+                e.Handled = true;
                 SaveProject_Click(null, null);
             }
             else if (ctrl && e.Key == Key.O)
@@ -811,18 +825,58 @@ namespace SglDesigner
                 e.Handled = true;
                 CloneSelected_Click(null, null);
             }
-            else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Z)
+            else if (ctrl && e.Key == Key.Z)
             {
                 PerformUndo();
+                e.Handled = true;
             }
-            else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Y)
+            else if (ctrl && e.Key == Key.Y)
             {
                 PerformRedo();
+                e.Handled = true;
             }
-            //else if (e.Key == Key.Delete)
-            //{
-            //    DeleteSelected_Click(null, null);
-            //}
+            // ==========================================
+            // 方向键微调控件位置
+            // ==========================================
+            else if (e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.Left || e.Key == Key.Right)
+            {
+                if (_selectedWidgets.Any())
+                {
+                    // 贴心小功能：按住 Shift 键时，每次移动 10 个像素，否则 1 个像素
+                    int step = shift ? 10 : 1;
+
+                    int deltaX = 0;
+                    int deltaY = 0;
+
+                    // 注意：WPF 屏幕坐标系中，越往下 Y 越大。
+                    // (如果你要求严格的“上Y+ 下Y-”，请把 Up 和 Down 的符号互换)
+                    if (e.Key == Key.Up) deltaY = -step; // 视觉向上：Y-
+                    if (e.Key == Key.Down) deltaY = step;  // 视觉向下：Y+
+                    if (e.Key == Key.Left) deltaX = -step; // 视觉向左：X-
+                    if (e.Key == Key.Right) deltaX = step;  // 视觉向右：X+
+
+                    RecordBeforeChange();
+
+                    foreach (var w in _selectedWidgets)
+                    {
+                        if (w.DataContext is SglWidgetData data)
+                        {
+                            data.X += deltaX;
+                            data.Y += deltaY;
+
+                            // 同步更新画布上的视觉位置
+                            Canvas.SetLeft(w, data.X);
+                            Canvas.SetTop(w, data.Y);
+                        }
+                    }
+
+                    // 更新高亮虚线框的位置
+                    UpdateAdornerLayer(false);
+
+                    // 【核心】斩断事件，防止 WPF 把焦点切走或者引起 ScrollViewer 滚动
+                    e.Handled = true;
+                }
+            }
         }
 
 
@@ -1854,29 +1908,37 @@ namespace SglDesigner
             // 切换 Tab 页面
             SglScreen.Instance.BottomPanelTabIndex = 1;
             LogInfo.Document.Blocks.Clear();
+            try
+            {
+                //获取程序路径
+                string path = AppDomain.CurrentDomain.BaseDirectory;
 
-            //获取程序路径
-            string path = AppDomain.CurrentDomain.BaseDirectory;
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = System.IO.Path.Combine(path, @"tools/make");
+                string ccPrefixPath = System.IO.Path.Combine(path, @"tools/mingw64/bin/").Replace("\\", "/");
+                startInfo.Arguments = $"-j16 run CC_PREFIX={ccPrefixPath}";
+                startInfo.WorkingDirectory = System.IO.Path.Combine(path, @"simulator");
+                // Set the process options
+                startInfo.UseShellExecute = false;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = true;
+                startInfo.CreateNoWindow = true;
 
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = System.IO.Path.Combine(path, @"tools\make");
-            string ccPrefixPath = System.IO.Path.Combine(path, @"tools/mingw64/bin/").Replace("\\", "/");
-            startInfo.Arguments = $"-j16 run CC_PREFIX={ccPrefixPath}";
-            startInfo.WorkingDirectory = System.IO.Path.Combine(path, @"simulator");
-            // Set the process options
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.CreateNoWindow = true;
+                // Create the process and start it
+                Process process = new Process();
+                process.StartInfo = startInfo;
+                process.OutputDataReceived += new DataReceivedEventHandler(OutputDataReceived);
+                process.ErrorDataReceived += new DataReceivedEventHandler(OutputDataReceived);
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+            }
+            catch (Exception ex)
+            {
 
-            // Create the process and start it
-            Process process = new Process();
-            process.StartInfo = startInfo;
-            process.OutputDataReceived += new DataReceivedEventHandler(OutputDataReceived);
-            process.ErrorDataReceived += new DataReceivedEventHandler(OutputDataReceived);
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
+                MessageBox.Show(ex.Message, "警告！", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
 
         }
         private void SglConfig_Click(object sender, RoutedEventArgs e)
@@ -1894,33 +1956,42 @@ namespace SglDesigner
             SglScreen.Instance.BottomPanelTabIndex = 1;
             LogInfo.Document.Blocks.Clear();
 
-            //编译前导出
-            ExportCodeToBuild();
+            try
+            {
+                //编译前导出
+                ExportCodeToBuild();
 
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            //获取程序路径                                      
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            startInfo.FileName = System.IO.Path.Combine(path, @"tools/make");
-            //startInfo.Arguments = $"-j16 CC_PREFIX={System.IO.Path.Combine(path, @"tools\mingw64\bin\")}"; 
-            string ccPrefixPath = System.IO.Path.Combine(path, @"tools/mingw64/bin/").Replace("\\", "/");
-            startInfo.Arguments = $"-j16 CC_PREFIX={ccPrefixPath}";
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                //获取程序路径                                      
+                string path = AppDomain.CurrentDomain.BaseDirectory;
+                startInfo.FileName = System.IO.Path.Combine(path, @"tools/make");
+                //startInfo.Arguments = $"-j16 CC_PREFIX={System.IO.Path.Combine(path, @"tools\mingw64\bin\")}"; 
+                string ccPrefixPath = System.IO.Path.Combine(path, @"tools/mingw64/bin/").Replace("\\", "/");
+                startInfo.Arguments = $"-j16 CC_PREFIX={ccPrefixPath}";
 
-            startInfo.WorkingDirectory = System.IO.Path.Combine(path, @"simulator");
-            //GC 不支持中文路径,否则找不到编译工具
+                startInfo.WorkingDirectory = System.IO.Path.Combine(path, @"simulator");
+                //GC 不支持中文路径,否则找不到编译工具
+
+
+                startInfo.UseShellExecute = false;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = true;
+                startInfo.CreateNoWindow = true;
+
+                Process process = new Process();
+                process.StartInfo = startInfo;
+                process.OutputDataReceived += new DataReceivedEventHandler(OutputDataReceived);
+                process.ErrorDataReceived += new DataReceivedEventHandler(OutputDataReceived);
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message,"警告！",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
             
-
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            startInfo.CreateNoWindow = true;
-
-            Process process = new Process();
-            process.StartInfo = startInfo;
-            process.OutputDataReceived += new DataReceivedEventHandler(OutputDataReceived);
-            process.ErrorDataReceived += new DataReceivedEventHandler(OutputDataReceived);
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
 
         }
 
