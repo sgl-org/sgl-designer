@@ -14,7 +14,14 @@ namespace SglDesigner
             String BuildDateTime = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString();
             BuildDate.Content = "Suzhou    BuildDate: " + BuildDateTime;
 
-            desc.AppendText("V1.0.0.6:\r\n\r\n");
+            desc.AppendText("V1.0.0.7:\r\n\r\n");
+            desc.AppendText("   1. 添加键盘箭头调整坐标功能.\r\n");
+            desc.AppendText("   2. 添加鼠标中键按下平移画面功能.\r\n");
+            desc.AppendText("   3. 修复滚轮只能加不能减问题.\r\n");
+            desc.AppendText("   4. 添加隐藏对象导出的代码.\r\n");
+            desc.AppendText("   5. 修复win控件子对象坐标未计算标题栏本身高度问题.\r\n");
+
+            desc.AppendText("\r\nV1.0.0.6:\r\n\r\n");
             desc.AppendText("   1. 修复页面删除后，引用ID未清理问题.\r\n");
             desc.AppendText("   2. 添加Win控件，ViewList控件，StatusBar控件，Roller控件.\r\n");
             desc.AppendText("   3. 完善对象移入移出容器，并添加虚线提示.\r\n");

@@ -1138,7 +1138,11 @@ namespace SglDesigner
         private void OnManualUIChanged(object sender, SpinEventArgs e)
         {
 
-            UpdateAdornerLayer();
+            
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                UpdateAdornerLayer();
+            }), System.Windows.Threading.DispatcherPriority.ContextIdle);
         }
         //private void IntegerUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         //{
@@ -1494,6 +1498,18 @@ namespace SglDesigner
 
         private void Viewport_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            //全局中键释放，停止画布拖拽
+            if (e.ChangedButton == MouseButton.Middle)
+            {
+                _isPanningCanvas = false;
+                ViewportContainer.ReleaseMouseCapture();
+                ViewportContainer.Cursor = Cursors.Arrow; // 恢复默认鼠标形状
+                e.Handled = true;
+                return;
+            }
+
+
+
             var activeWidgetUI = _selectedWidgets.FirstOrDefault();
             var data = activeWidgetUI?.DataContext as SglWidgetData;
             bool isEscapeMode = _lastHighlightMode;
@@ -1694,6 +1710,19 @@ namespace SglDesigner
         // 鼠标按下处理
         private void Viewport_MouseDown(object sender, MouseButtonEventArgs e)
         {
+   
+            // 全局中键按下，开启画布拖拽
+
+            if (e.ChangedButton == MouseButton.Middle)
+            {
+                _isPanningCanvas = true;
+                _lastMousePos = e.GetPosition(this); // 记录相对主窗口的位置
+                ViewportContainer.CaptureMouse();    // 捕获鼠标
+                ViewportContainer.Cursor = Cursors.SizeAll; // 鼠标变成十字移动形状，提升体验
+                e.Handled = true;
+                return;
+            }
+
             // 只有左键才执行选择、缩放、拖拽逻辑
             if (e.ChangedButton != MouseButton.Left) return;
 

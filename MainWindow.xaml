@@ -75,6 +75,9 @@
         <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="IsExpanded" Value="True"/>
+            <!-- 如果你需要，还可以绑定选中状态 -->
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TreeViewItem}">
@@ -91,21 +94,21 @@
 
                             <!-- Connecting Lines -->
                             <Rectangle x:Name="VerLn" 
-           Width="1" 
-           Stroke="#DCDCDC" 
-           Fill="#DCDCDC"
-           Grid.Column="0" 
-           Grid.RowSpan="2" 
-           HorizontalAlignment="Center" 
-           SnapsToDevicePixels="true"/>
+                               Width="1" 
+                               Stroke="#DCDCDC" 
+                               Fill="#DCDCDC"
+                               Grid.Column="0" 
+                               Grid.RowSpan="2" 
+                               HorizontalAlignment="Center" 
+                               SnapsToDevicePixels="true"/>
 
                             <Rectangle x:Name="HorLn" 
-           Height="1" 
-           Stroke="#DCDCDC" 
-           Grid.Column="0"
-           VerticalAlignment="Center"
-           Margin="10,0,0,0" 
-           SnapsToDevicePixels="True"/>
+                               Height="1" 
+                               Stroke="#DCDCDC" 
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0" 
+                               SnapsToDevicePixels="True"/>
 
                             <ToggleButton Margin="0,0,0,0" x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"/>
                             <Border Name="Bd" Grid.Column="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
@@ -349,9 +352,9 @@
 
         <Grid Grid.Row="1" Grid.Column="0" Focusable="True"  Background="#252526">
             <Grid.RowDefinitions>
-                <RowDefinition Height="80*"/>
-                <RowDefinition Height="150*"/>
-                <RowDefinition Height="143*"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition/>
+                <RowDefinition Height="220"/>
             </Grid.RowDefinitions>
 
             <DockPanel Grid.Row="0" Margin="5,5,5,5">
@@ -367,7 +370,7 @@
                 <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto"  x:Name="ScreenListBox"  ContextMenu="{StaticResource ScreenItemContextMenu}"
          ItemsSource="{Binding ScreenList}" MouseDoubleClick="ScreenListBox_MouseDoubleClick" 
          SelectedItem="{Binding SelectedScreen}" HorizontalContentAlignment="Stretch" 
-         Background="#1A1A1A" BorderBrush="DarkSlateGray"  BorderThickness="1"
+         Background="#1A1A1A" BorderBrush="#FF8F903C"  BorderThickness="1"
                              
                  dd:DragDrop.IsDragSource="True"
                 dd:DragDrop.IsDropTarget="True"
@@ -520,26 +523,27 @@
 
 
 
-            <DockPanel Grid.Row="2" Margin="5,5,5,5">
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Grid.Row="2">
+            <StackPanel Grid.Row="2" Margin="5,5,5,5">
+                <StackPanel  Orientation="Horizontal" Grid.Row="2">
                     <TextBlock Text="控件列表" Foreground="#FFD700"  />
                     <TextBlock Text="{Binding Source={x:Static local:SglScreen.Instance}, Path=WidgetCount,StringFormat= ( {0} )}" Foreground="#FFD700"  />
                 </StackPanel>
 
-                <TreeView VirtualizingStackPanel.IsVirtualizing="True" BorderBrush="DarkSlateGray"  BorderThickness="1" ContextMenu="{StaticResource WidgetMenu}"
+                <TreeView VirtualizingStackPanel.IsVirtualizing="True" BorderBrush="#FF8F903C"  BorderThickness="1" ContextMenu="{StaticResource WidgetMenu}"
                     VirtualizingStackPanel.VirtualizationMode="Recycling" ItemsSource="{Binding SelectedScreen.Widgets}" 
                     dd:DragDrop.IsDragSource="True"
                     dd:DragDrop.IsDropTarget="True" 
                     dd:DragDrop.DropHandler="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                     dd:DragDrop.UseDefaultDragAdorner="True"   
-                    VerticalAlignment="Top"  DockPanel.Dock="Bottom"
+                    VerticalAlignment="Top" Height="190"
                     SelectedItemChanged="WidgetTree_SelectedItemChanged"  Background="#1e1e1e" Name="WidgetTree">
                     <TreeView.Resources>
                         <Style TargetType="ScrollViewer" BasedOn="{StaticResource ScrollerStyle}"/>
                     </TreeView.Resources>
+
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                            <Grid Margin="0,2" HorizontalAlignment="Stretch" Width="200">
+                            <Grid Margin="0,2" HorizontalAlignment="Stretch" Width="180">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
@@ -578,7 +582,7 @@
                     </TreeView.ItemTemplate>
                 </TreeView>
 
-            </DockPanel>
+            </StackPanel>
 
 
         </Grid>

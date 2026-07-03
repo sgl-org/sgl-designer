@@ -409,8 +409,8 @@ namespace SglDesigner
             return sbVars.ToString() + "\n" + sb.ToString();
         }
 
-
-        public static string GenerateSglCode(SglWidgetData d, string parentName = "screen")
+        // 【修改1：函数签名增加 offsetX 和 offsetY 参数】
+        public static string GenerateSglCode(SglWidgetData d, string parentName = "screen", int offsetX = 0, int offsetY = 0)
         {
             StringBuilder sb = new StringBuilder();
             string name = d.Id;
@@ -431,12 +431,17 @@ namespace SglDesigner
             {
                 sb.AppendLine($"    {name} = sgl_{type}_create({parentName});");
             }
+
             sb.AppendLine($"    sgl_obj_set_size({name}, {d.W}, {d.H});");
-            sb.AppendLine($"    sgl_obj_set_pos({name}, {d.X}, {d.Y});");
-            if(d.IsHidden)
+
+            // 【修改2：在这里加上传入的偏移量】
+            sb.AppendLine($"    sgl_obj_set_pos({name}, {d.X + offsetX}, {d.Y + offsetY});");
+
+            if (d.IsHidden)
             {
                 sb.AppendLine($"    sgl_obj_set_hidden({name});");
             }
+
             if (d is SglButtonData btn)
             {
                 // 映射 sgl_button_set_color (主体色)
@@ -463,9 +468,6 @@ namespace SglDesigner
                     sb.AppendLine($"    sgl_button_set_border_width({name}, {btn.BorderWidth});");
                     sb.AppendLine($"    sgl_button_set_border_color({name}, {sgl_rgb(btn.BorderColor)});");
                 }
-
-
-
             }
             else if (d is SglLabelData lbl)
             {
@@ -477,7 +479,6 @@ namespace SglDesigner
                 {
                     sb.AppendLine($"    sgl_label_set_bg_color({name}, {sgl_rgb(lbl.BgColor)});");
                 }
-
 
                 sb.AppendLine($"    sgl_label_set_text_align({name}, {GetAlignEnumName(lbl.TextAlign)});");
                 sb.AppendLine($"    sgl_label_set_alpha({name}, {lbl.Opacity});");
@@ -571,14 +572,12 @@ namespace SglDesigner
                 if (sl.IsVertical)
                 {
                     sb.AppendLine($"    sgl_obj_set_size({name}, {sl.H}, {sl.W});");
-
                 }
                 sb.AppendLine($"    sgl_slider_set_direct({name}, {(sl.IsVertical ? 1 : 0)});");
                 sb.AppendLine($"    sgl_slider_set_radius({name}, {sl.Radius});");
                 sb.AppendLine($"    sgl_slider_set_track_color({name}, {sgl_rgb(sl.TrackColor)});");
                 sb.AppendLine($"    sgl_slider_set_fill_color({name}, {sgl_rgb(sl.FillColor)});");
                 sb.AppendLine($"    sgl_slider_set_knob_color({name}, {sgl_rgb(sl.KnobColor)});");
-
             }
             else if (d is SglTextBoxData tb)
             {
@@ -680,7 +679,10 @@ namespace SglDesigner
                 {
                     sb.AppendLine($"    // Children of {name}");
                     foreach (var child in win.Children)
-                        sb.Append(GenerateSglCode(child, name));
+                    {
+                        // 【修改3：将 win.TitleHeight 作为 Y轴偏移量传入，仅影响它的第一层子节点】
+                        sb.Append(GenerateSglCode(child, name, 0, win.TitleHeight));
+                    }
                 }
             }
             else if (d is SglViewlistData vl)
@@ -732,7 +734,9 @@ namespace SglDesigner
             {
                 sb.AppendLine($"    {name} = sgl_dropdown_create({parentName});");
                 sb.AppendLine($"    sgl_obj_set_size({name}, {dd.W}, {dd.H});");
-                sb.AppendLine($"    sgl_obj_set_pos({name}, {dd.X}, {dd.Y});");
+
+                // 【修改4：给 Dropdown 自己重写的 set_pos 也补上偏移量】
+                sb.AppendLine($"    sgl_obj_set_pos({name}, {dd.X + offsetX}, {dd.Y + offsetY});");
 
                 // 设置样式
                 sb.AppendLine($"    sgl_dropdown_set_bg_color({name}, {sgl_rgb(dd.BgColor)});");
@@ -753,7 +757,7 @@ namespace SglDesigner
                 if (dd.SelectedIndex >= 0)
                 {
                     sb.AppendLine($"    //sgl_dropdown_set_selected_index({name}, {dd.SelectedIndex});");
-                   
+
                 }
             }
             else if (d is SglRollerData roller)
@@ -884,9 +888,9 @@ namespace SglDesigner
             }
             else if (d is SglLineData line)
             {
-                // 获取容器的绝对位置和尺寸
-                int x = line.X;
-                int y = line.Y;
+                // 【修改5：获取容器的位置，加上传进来的偏移量】
+                int x = line.X + offsetX;
+                int y = line.Y + offsetY;
                 int w = line.W;
                 int h = line.H;
 
@@ -1053,7 +1057,7 @@ namespace SglDesigner
                     sb.AppendLine($"    sgl_piechart_set_legend_pos({name}, {posStr});");
 
                     string dirStr = pie.LegendDir == SglPieLegendDir.Horizontal ?
-                                    "SGL_PIECHART_LEGEND_DIR_HORIZONTAL" : "SGL_PIECHART_LEGEND_DIR_VERTICAL";
+                                     "SGL_PIECHART_LEGEND_DIR_HORIZONTAL" : "SGL_PIECHART_LEGEND_DIR_VERTICAL";
                     sb.AppendLine($"    sgl_piechart_set_legend_dir({name}, {dirStr});");
 
                     sb.AppendLine($"    sgl_piechart_set_legend_area_size({name}, {pie.LegendAreaSize});");
@@ -1317,12 +1321,8 @@ namespace SglDesigner
 
             }
 
-
-
             return sb.ToString();
         }
-
-
 
         // 生成事件处理函数的 C 语言模板
         public static string GenerateCEventHandlers(SglWidgetData d, HashSet<string> processed)

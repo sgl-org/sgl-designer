@@ -1,6 +1,6 @@
 {
-  "Version": "1.0.0.6",
-  "DateTime": "2026-06-30 16:00:39",
+  "Version": "1.0.0.7",
+  "DateTime": "2026-07-03 22:56:39",
   "SaveBy": "SGL SglDesigner",
   "ColorFormat": 0,
   "Width": 320,
@@ -8,37 +8,6 @@
   "ExportFolder": "\\\\10.28.32.56\\05 共享文件\\rt-thread\\stm32g431_dds_generator\\Core\\Src\\ui_export",
   "ScreenList": [
     {
-      "SelectedWidgetData": {
-        "$type": "SglDesigner.SglLabelData, SglDesigner",
-        "BgColor": "#00FFFFFF",
-        "BorderColor": "#00000000",
-        "BorderWidth": 0,
-        "Radius": 4,
-        "Opacity": 255.0,
-        "Text": "Chan",
-        "TextColor": "#FFFFFFFF",
-        "TextAlign": 0,
-        "FontName": "consolas14",
-        "FontSize": "14",
-        "TextRotation": 0,
-        "OffsetX": 0,
-        "OffsetY": 0,
-        "EventRoutes": {},
-        "Children": [],
-        "IsContainer": false,
-        "Events": [],
-        "Id": "label3",
-        "Type": 1,
-        "Tag": "label3",
-        "X": 2,
-        "Y": 28,
-        "W": 40,
-        "H": 20,
-        "IsHidden": false,
-        "EventCallbackName": "label3_event_handler",
-        "IsClickable": false,
-        "IsSelected": false
-      },
       "Widgets": [
         {
           "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -85,13 +54,13 @@
                   "Type": 1,
                   "Tag": "label0",
                   "X": 53,
-                  "Y": 0,
+                  "Y": 3,
                   "W": 260,
                   "H": 22,
                   "IsHidden": false,
                   "EventCallbackName": "label0_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -102,7 +71,7 @@
                   "Opacity": 255.0,
                   "Text": "21:08",
                   "TextColor": "#FFFFFFFF",
-                  "TextAlign": 11,
+                  "TextAlign": 7,
                   "FontName": "sgl_font_16",
                   "FontSize": "12",
                   "TextRotation": 0,
@@ -116,13 +85,13 @@
                   "Type": 1,
                   "Tag": "label21",
                   "X": 5,
-                  "Y": 1,
-                  "W": 44,
+                  "Y": 4,
+                  "W": 66,
                   "H": 20,
                   "IsHidden": false,
                   "EventCallbackName": "label21_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 }
               ],
               "IsContainer": true,
@@ -137,7 +106,7 @@
               "IsHidden": false,
               "EventCallbackName": "rectangle0_event_handler",
               "IsClickable": false,
-              "IsSelected": true
+              "IsSelected": false
             },
             {
               "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -173,7 +142,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "rectangle2_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -198,7 +167,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "rectangle2_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -229,7 +198,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label1_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -260,7 +229,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label2_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -291,7 +260,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label4_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -322,7 +291,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label5_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -353,7 +322,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label7_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -384,7 +353,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label8_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -415,7 +384,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label10_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLedData, SglDesigner",
@@ -439,7 +408,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "led0_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLineData, SglDesigner",
@@ -461,7 +430,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "line0_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -492,7 +461,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label22_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -523,7 +492,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label23_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -554,7 +523,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label24_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglIconData, SglDesigner",
@@ -595,7 +564,7 @@
               "IsHidden": false,
               "EventCallbackName": "rectangle1_event_handler",
               "IsClickable": false,
-              "IsSelected": true
+              "IsSelected": false
             },
             {
               "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -632,7 +601,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "icon1_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -678,7 +647,7 @@
               "IsHidden": false,
               "EventCallbackName": "rectangle8_event_handler",
               "IsClickable": false,
-              "IsSelected": true
+              "IsSelected": false
             },
             {
               "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -765,7 +734,7 @@
               "IsHidden": false,
               "EventCallbackName": "rectangle7_event_handler",
               "IsClickable": false,
-              "IsSelected": true
+              "IsSelected": false
             },
             {
               "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -848,7 +817,7 @@
               "IsHidden": false,
               "EventCallbackName": "rectangle9_event_handler",
               "IsClickable": false,
-              "IsSelected": true
+              "IsSelected": false
             },
             {
               "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -884,7 +853,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "rectangle5_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -909,7 +878,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "rectangle6_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -940,7 +909,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label11_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -971,7 +940,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label12_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1002,7 +971,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label14_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1033,7 +1002,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label15_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1064,7 +1033,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label17_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1095,7 +1064,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label18_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1126,7 +1095,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label20_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLedData, SglDesigner",
@@ -1150,7 +1119,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "led1_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLineData, SglDesigner",
@@ -1172,7 +1141,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "line1_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1203,7 +1172,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label25_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1234,7 +1203,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label26_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglLabelData, SglDesigner",
@@ -1265,7 +1234,7 @@
                   "IsHidden": false,
                   "EventCallbackName": "label27_event_handler",
                   "IsClickable": false,
-                  "IsSelected": true
+                  "IsSelected": false
                 },
                 {
                   "$type": "SglDesigner.SglIconData, SglDesigner",
@@ -1306,7 +1275,7 @@
               "IsHidden": false,
               "EventCallbackName": "rectangle4_event_handler",
               "IsClickable": false,
-              "IsSelected": true
+              "IsSelected": false
             },
             {
               "$type": "SglDesigner.SglPanelData, SglDesigner",
@@ -1389,7 +1358,7 @@
               "IsHidden": false,
               "EventCallbackName": "rectangle10_event_handler",
               "IsClickable": false,
-              "IsSelected": true
+              "IsSelected": false
             }
           ],
           "IsContainer": true,
@@ -1408,8 +1377,34 @@
         }
       ],
       "Id": "screen0",
+      "Name": "screen0",
       "IsEditing": false,
-      "Name": "screen0"
+      "SelectedWidgetData": {
+        "$type": "SglDesigner.SglIconData, SglDesigner",
+        "BgColor": "#00FFFFFF",
+        "BorderColor": "#00FFFFFF",
+        "BorderWidth": 0,
+        "Radius": 0,
+        "IconName": "multiwave",
+        "IconColor": "#FFFF69B4",
+        "Opacity": 255,
+        "IconAlign": 0,
+        "EventRoutes": {},
+        "Children": [],
+        "IsContainer": false,
+        "Events": [],
+        "Id": "icon5",
+        "Type": 11,
+        "Tag": "icon5",
+        "X": 5,
+        "Y": 0,
+        "W": 36,
+        "H": 36,
+        "IsHidden": false,
+        "EventCallbackName": "icon5_event_handler",
+        "IsClickable": false,
+        "IsSelected": true
+      }
     }
   ],
   "ResourceList": [
