@@ -1950,15 +1950,15 @@ namespace SglDesigner
                     // 绘制虚线框
                     var selectionFrame = new Rectangle
                     {
-                        Width = globalRect.Width + 4,
-                        Height = globalRect.Height + 4,
+                        Width = globalRect.Width,
+                        Height = globalRect.Height,
                         Stroke = _nxpBlue,
                         StrokeThickness = 1,
                         StrokeDashArray = new DoubleCollection { 2, 2 },
                         IsHitTestVisible = false
                     };
-                    Canvas.SetLeft(selectionFrame, globalRect.Left - 2);
-                    Canvas.SetTop(selectionFrame, globalRect.Top - 2);
+                    Canvas.SetLeft(selectionFrame, globalRect.Left);
+                    Canvas.SetTop(selectionFrame, globalRect.Top);
                     AdornerLayer.Children.Add(selectionFrame);
 
                     // 只有单选才画锚点

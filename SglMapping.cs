@@ -433,7 +433,10 @@ namespace SglDesigner
             }
             sb.AppendLine($"    sgl_obj_set_size({name}, {d.W}, {d.H});");
             sb.AppendLine($"    sgl_obj_set_pos({name}, {d.X}, {d.Y});");
-
+            if(d.IsHidden)
+            {
+                sb.AppendLine($"    sgl_obj_set_hidden({name});");
+            }
             if (d is SglButtonData btn)
             {
                 // 映射 sgl_button_set_color (主体色)
