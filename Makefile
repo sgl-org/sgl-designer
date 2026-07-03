@@ -29,7 +29,7 @@ BIN = $(CP) -O binary -S
 CPATH     := -Isdl/include/SDL2      \
 			 -I../sgl/source         \
 			 -Iui_export         \
-			 -I../sgl/source/include 
+			 -I../sgl/source/include \
 
 CFLAGS    := $(CPATH) -O2 -ffunction-sections -fdata-sections -Wunused-function -Wall -Wextra -std=c99 -g
 LDFLAGS   := -Lsdl/lib -lmingw32 -lSDL2main -lSDL2 -mconsole -lm -ldinput8 -ldxguid -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lsetupapi -lversion -luuid -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
